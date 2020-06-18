@@ -22,6 +22,10 @@ public class MainPage extends JFrame {
         goods_sold.setBounds(20,20,100,50);
         window.add(goods_sold);
 
+        goods_buy = new JButton("商品买入");
+        goods_buy.setBounds(20,80,100,50);
+        window.add(goods_buy);
+
         window.setVisible(true);
     }
 }
