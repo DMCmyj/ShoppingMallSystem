@@ -61,6 +61,6 @@ public class LinkDB {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        return true;
+        return false;
     }
 }
