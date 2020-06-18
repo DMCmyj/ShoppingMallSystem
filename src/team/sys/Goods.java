@@ -1,16 +1,22 @@
 package team.sys;
 
+import java.util.Date;
+
 public class Goods {
     private String goods_name;
-    private String goods_price;
+    private double goods_price;
     private String goods_type;
-    private String goods_num;
+    private int goods_num;
+    private Date sell_date;
+    private Date buy_date;
 
-    public Goods(String goods_name, String goods_price, String goods_type, String goods_num) {
+    public Goods(String goods_name, double goods_price, String goods_type, int goods_num, Date sell_date, Date buy_date) {
         this.goods_name = goods_name;
         this.goods_price = goods_price;
         this.goods_type = goods_type;
         this.goods_num = goods_num;
+        this.sell_date = sell_date;
+        this.buy_date = buy_date;
     }
 
     public String getGoods_name() {
@@ -21,11 +27,11 @@ public class Goods {
         this.goods_name = goods_name;
     }
 
-    public String getGoods_price() {
+    public double getGoods_price() {
         return goods_price;
     }
 
-    public void setGoods_price(String goods_price) {
+    public void setGoods_price(double goods_price) {
         this.goods_price = goods_price;
     }
 
@@ -37,11 +43,27 @@ public class Goods {
         this.goods_type = goods_type;
     }
 
-    public String getGoods_num() {
+    public int getGoods_num() {
         return goods_num;
     }
 
-    public void setGoods_num(String goods_num) {
+    public void setGoods_num(int goods_num) {
         this.goods_num = goods_num;
+    }
+
+    public Date getSell_date() {
+        return sell_date;
+    }
+
+    public void setSell_date(Date sell_date) {
+        this.sell_date = sell_date;
+    }
+
+    public Date getBuy_date() {
+        return buy_date;
+    }
+
+    public void setBuy_date(Date buy_date) {
+        this.buy_date = buy_date;
     }
 }

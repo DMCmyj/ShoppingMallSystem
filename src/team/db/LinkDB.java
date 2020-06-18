@@ -63,4 +63,16 @@ public class LinkDB {
         }
         return false;
     }
+
+//    获取所有商品信息
+    public static ResultSet getAllGoods(){
+        String sql = "select * from goods";
+        ResultSet resultSet = null;
+        try {
+             resultSet = mysqlStatement.executeQuery(sql);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return resultSet;
+    }
 }
