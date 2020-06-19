@@ -4,6 +4,8 @@ import team.sys.Goods;
 import team.sys.User;
 
 import java.sql.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Objects;
 
 public class LinkDB {
@@ -91,8 +93,17 @@ public class LinkDB {
     }
 
 //    更改商品数量
-    public static boolean SetGoodsNum(Goods goods){
-        String sql = "UPDATE `shoppingdb`.`goods` SET `goods_num` = '"+ goods.getGoods_num() +"' WHERE (`goods_name` = '"+ goods.getGoods_name() +"');";
+    public static boolean SetGoodsNum(Goods goods,boolean mode){
+        String sql;
+//        日期格式的控制
+        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        if(mode){
+//            买
+            sql = "UPDATE `shoppingdb`.`goods` SET goods_num = '"+ goods.getGoods_num() +"',buy_date = '"+ sdf.format(new Date().getTime()) +"' WHERE (`goods_name` = '"+ goods.getGoods_name() +"');";
+        }else {
+//            出售
+            sql = "UPDATE `shoppingdb`.`goods` SET goods_num = '"+ goods.getGoods_num() +"',sell_date = '"+ sdf.format(new Date().getTime()) +"' WHERE (`goods_name` = '"+ goods.getGoods_name() +"');";
+        }
         try {
             if(1 == mysqlStatement.executeUpdate(sql)){
                 return true;
@@ -106,6 +117,19 @@ public class LinkDB {
 //    删除商品
     public static boolean deleteGoods(int goodsid){
         String sql = "DELETE FROM `shoppingdb`.`goods` WHERE (`idgoods` = '"+ goodsid +"');\n";
+        try {
+            if(1 == mysqlStatement.executeUpdate(sql)){
+                return true;
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return false;
+    }
+
+//    更新商品信息
+    public static boolean updataGoods(Goods goods){
+        String sql = "UPDATE `shoppingdb`.`goods` SET goods_type = '"+ goods.getGoods_type() +"',goods_price = '"+ goods.getGoods_price() +"',goods_name = '" + goods.getGoods_name() + "' WHERE (idgoods = '"+ goods.getGoods_id() +"');";
         try {
             if(1 == mysqlStatement.executeUpdate(sql)){
                 return true;

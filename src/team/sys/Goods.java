@@ -3,12 +3,17 @@ package team.sys;
 import java.util.Date;
 
 public class Goods {
+    private int goods_id;
     private String goods_name;
     private double goods_price;
     private String goods_type;
     private int goods_num;
     private Date sell_date;
     private Date buy_date;
+
+    public int getGoods_id() {
+        return goods_id;
+    }
 
     public Goods(String goods_name, double goods_price, String goods_type, int goods_num, Date sell_date, Date buy_date) {
         this.goods_name = goods_name;
@@ -20,6 +25,14 @@ public class Goods {
     }
 
     public Goods(String goods_name, double goods_price, String goods_type, int goods_num) {
+        this.goods_name = goods_name;
+        this.goods_price = goods_price;
+        this.goods_type = goods_type;
+        this.goods_num = goods_num;
+    }
+
+    public Goods(int goods_id,String goods_name, double goods_price, String goods_type, int goods_num) {
+        this.goods_id = goods_id;
         this.goods_name = goods_name;
         this.goods_price = goods_price;
         this.goods_type = goods_type;

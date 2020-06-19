@@ -70,7 +70,7 @@ public class SellGoodsPage extends JFrame {
                     int sellNum = Integer.parseInt(goodsSellNum.getText());
                     if(sellNum <= goods.getGoods_num()){
                         goods.setGoods_num(goods.getGoods_num()-sellNum);
-                        if(LinkDB.SetGoodsNum(goods)){
+                        if(LinkDB.SetGoodsNum(goods,false)){
                             JOptionPane.showMessageDialog(null,"出售成功,收益为"+sellNum*goods.getGoods_price()+"元","警告",JOptionPane.PLAIN_MESSAGE);
                             window.setVisible(false);
                             MainPage mainPage = new MainPage();

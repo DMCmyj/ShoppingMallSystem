@@ -126,6 +126,23 @@ public class MainPage extends JFrame {
         change_goods = new JButton("修改商品");
         change_goods.setFont(font_button);
         change_goods.setBounds(20,260,140,50);
+        change_goods.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int num = Integer.parseInt((String) jTable.getValueAt(jTable.getSelectedRow(),4));
+                int id = Integer.parseInt((String) jTable.getValueAt(jTable.getSelectedRow(),0));
+                ChangeGoodsPage changeGoodsPage = new ChangeGoodsPage(
+                        new Goods(
+                                id,
+                                (String) jTable.getValueAt(jTable.getSelectedRow(),1),
+                                Double.parseDouble((String) jTable.getValueAt(jTable.getSelectedRow(),3)),
+                                (String) jTable.getValueAt(jTable.getSelectedRow(),2),
+                                num
+                        )
+                );
+                window.setVisible(false);
+            }
+        });
         window.add(change_goods);
 
         window.add(jScrollPane);
@@ -134,7 +151,7 @@ public class MainPage extends JFrame {
 
     //获取表格结构和最新数据
     public DefaultTableModel getTableModel(ResultSet resultSet){
-        String[] colName= {"商品id","商品名称","商品类型","商品价格","商品数量","注册日期","出售日期"};
+        String[] colName= {"商品id","商品名称","商品类型","商品价格","商品数量","进货日期","出售日期"};
         DefaultTableModel tableModel = new DefaultTableModel();
         //        添加表格数据
         for (String colname:colName) {

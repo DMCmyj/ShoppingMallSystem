@@ -60,7 +60,7 @@ public class BuyGoodsPage {
                     int buyNum = Integer.parseInt(goodsSellNum.getText());
                     if(buyNum>=0){
                         goods.setGoods_num(goods.getGoods_num()+buyNum);
-                        if(LinkDB.SetGoodsNum(goods)){
+                        if(LinkDB.SetGoodsNum(goods,true)){
                             JOptionPane.showMessageDialog(null,"买入成功,花费为"+buyNum*goods.getGoods_price()+"元","警告",JOptionPane.PLAIN_MESSAGE);
                             window.setVisible(false);
                             MainPage mainPage = new MainPage();
