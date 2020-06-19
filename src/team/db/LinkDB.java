@@ -79,6 +79,18 @@ public class LinkDB {
         return resultSet;
     }
 
+//    获取所有销售记录的信息
+    public static ResultSet getAllSalesRecord(){
+        String sql = "select * from sales_record";
+        ResultSet resultSet = null;
+        try {
+            resultSet = mysqlStatement.executeQuery(sql);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return resultSet;
+    }
+
 //    添加商品
     public static boolean AddGoods(Goods goods){
         String sql = "INSERT INTO `shoppingdb`.`goods` (`goods_name`, `goods_type`, `goods_price`, `goods_num`) VALUES ('"+ goods.getGoods_name() +"', '"+ goods.getGoods_type() +"', "+ goods.getGoods_price() +", "+ goods.getGoods_num() +");";
@@ -93,20 +105,27 @@ public class LinkDB {
     }
 
 //    更改商品数量
-    public static boolean SetGoodsNum(Goods goods,boolean mode){
+    public static boolean SetGoodsNum(Goods goods,boolean mode,int num){
         String sql;
+        String sql2;
 //        日期格式的控制
         SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         if(mode){
 //            买
             sql = "UPDATE `shoppingdb`.`goods` SET goods_num = '"+ goods.getGoods_num() +"',buy_date = '"+ sdf.format(new Date().getTime()) +"' WHERE (`goods_name` = '"+ goods.getGoods_name() +"');";
+            sql2 = "insert into sales_record value (null,'"+ goods.getGoods_name() +"','买入',"+ num +","+ goods.getGoods_price()*num +","+ goods.getGoods_id() +",'"+ sdf.format(new Date().getTime()) +"');";
         }else {
 //            出售
             sql = "UPDATE `shoppingdb`.`goods` SET goods_num = '"+ goods.getGoods_num() +"',sell_date = '"+ sdf.format(new Date().getTime()) +"' WHERE (`goods_name` = '"+ goods.getGoods_name() +"');";
+            sql2 = "insert into sales_record value (null,'"+ goods.getGoods_name() +"','出售',"+ num +","+ goods.getGoods_price()*num +","+ goods.getGoods_id() +",'"+ sdf.format(new Date().getTime()) +"');";
         }
         try {
             if(1 == mysqlStatement.executeUpdate(sql)){
-                return true;
+                if(1 == mysqlStatement.executeUpdate(sql2)){
+                    return true;
+                }
+            }else{
+                return false;
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
