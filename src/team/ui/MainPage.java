@@ -8,6 +8,7 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.security.MessageDigest;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -49,8 +50,6 @@ public class MainPage extends JFrame {
         window.getContentPane().add(jScrollPane,BorderLayout.CENTER);
 //        默认选择第一行，需要在表格初始化完成后才可操作
         jTable.setRowSelectionInterval(0,0);
-
-
 
 
 //      商品出售按钮
@@ -109,6 +108,19 @@ public class MainPage extends JFrame {
         delete_goods = new JButton("删除商品");
         delete_goods.setFont(font_button);
         delete_goods.setBounds(20,200,140,50);
+        delete_goods.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int num = Integer.parseInt((String) jTable.getValueAt(jTable.getSelectedRow(),0));
+                int check = JOptionPane.showConfirmDialog(null,"您确认要删除商品id为" + num + "的商品吗？","温馨提示",JOptionPane.YES_NO_OPTION);
+                if(check == 0){
+                    if(LinkDB.deleteGoods(num)){
+                        JOptionPane.showMessageDialog(null,"删除成功","提示",JOptionPane.PLAIN_MESSAGE);
+                        jTable.setModel(getTableModel(LinkDB.getAllGoods()));
+                    }
+                }
+            }
+        });
         window.add(delete_goods);
 
         change_goods = new JButton("修改商品");

@@ -102,4 +102,17 @@ public class LinkDB {
         }
         return false;
     }
+
+//    删除商品
+    public static boolean deleteGoods(int goodsid){
+        String sql = "DELETE FROM `shoppingdb`.`goods` WHERE (`idgoods` = '"+ goodsid +"');\n";
+        try {
+            if(1 == mysqlStatement.executeUpdate(sql)){
+                return true;
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return false;
+    }
 }
