@@ -20,12 +20,15 @@ public class MainPage extends JFrame {
     JButton delete_goods;
     JButton change_goods;
 
+    Font font_button = new Font("楷体", Font.PLAIN,18);
+
     public MainPage(){
         window = new JFrame("商品管理系统登录页面");
         window.setLayout(null);
-        window.setSize(1100,600);
+        window.setSize(1120,400);
         //设置窗口在屏幕居中
         window.setLocationRelativeTo(null);
+        window.setResizable(false);
 
         ResultSet resultSet = LinkDB.getAllGoods();
 
@@ -36,19 +39,24 @@ public class MainPage extends JFrame {
                 return false;
             }
         };
+
 //      数据表外观设置
         jTable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
         JScrollPane jScrollPane = new JScrollPane(jTable);
         jTable.setRowHeight(30);
-        jScrollPane.setBounds(140,20,900,300);
+        jScrollPane.setBounds(180,20,900,300);
         jTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         window.getContentPane().add(jScrollPane,BorderLayout.CENTER);
+//        默认选择第一行，需要在表格初始化完成后才可操作
+        jTable.setRowSelectionInterval(0,0);
+
 
 
 
 //      商品出售按钮
         goods_sold = new JButton("商品出售");
-        goods_sold.setBounds(20,20,100,50);
+        goods_sold.setBounds(20,20,140,50);
+        goods_sold.setFont(font_button);
         goods_sold.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -67,11 +75,28 @@ public class MainPage extends JFrame {
         window.add(goods_sold);
 
         goods_buy = new JButton("商品买入");
-        goods_buy.setBounds(20,80,100,50);
+        goods_buy.setBounds(20,80,140,50);
+        goods_buy.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int num = Integer.parseInt((String) jTable.getValueAt(jTable.getSelectedRow(),4));
+                BuyGoodsPage buyGoodsPage = new BuyGoodsPage(
+                        new Goods(
+                                (String) jTable.getValueAt(jTable.getSelectedRow(),1),
+                                Double.parseDouble((String) jTable.getValueAt(jTable.getSelectedRow(),3)),
+                                (String) jTable.getValueAt(jTable.getSelectedRow(),2),
+                                num
+                        )
+                );
+                window.setVisible(false);
+            }
+        });
+        goods_buy.setFont(font_button);
         window.add(goods_buy);
 
         add_goods = new JButton("添加商品");
-        add_goods.setBounds(20,140,100,50);
+        add_goods.setBounds(20,140,140,50);
+        add_goods.setFont(font_button);
         add_goods.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -82,11 +107,13 @@ public class MainPage extends JFrame {
         window.add(add_goods);
 
         delete_goods = new JButton("删除商品");
-        delete_goods.setBounds(20,200,100,50);
+        delete_goods.setFont(font_button);
+        delete_goods.setBounds(20,200,140,50);
         window.add(delete_goods);
 
         change_goods = new JButton("修改商品");
-        change_goods.setBounds(20,140,100,50);
+        change_goods.setFont(font_button);
+        change_goods.setBounds(20,260,140,50);
         window.add(change_goods);
 
         window.add(jScrollPane);
