@@ -1,5 +1,6 @@
 package team.db;
 
+import team.sys.Goods;
 import team.sys.User;
 
 import java.sql.*;
@@ -74,5 +75,18 @@ public class LinkDB {
             throwables.printStackTrace();
         }
         return resultSet;
+    }
+
+//    添加商品
+    public static boolean AddGoods(Goods goods){
+        String sql = "INSERT INTO `shoppingdb`.`goods` (`goods_name`, `goods_type`, `goods_price`, `goods_num`) VALUES ('"+ goods.getGoods_name() +"', '"+ goods.getGoods_type() +"', "+ goods.getGoods_price() +", "+ goods.getGoods_num() +");";
+        try {
+            if(1 == mysqlStatement.executeUpdate(sql)){
+                return true;
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return false;
     }
 }

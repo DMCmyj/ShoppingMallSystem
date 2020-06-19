@@ -19,6 +19,13 @@ public class Goods {
         this.buy_date = buy_date;
     }
 
+    public Goods(String goods_name, double goods_price, String goods_type, int goods_num) {
+        this.goods_name = goods_name;
+        this.goods_price = goods_price;
+        this.goods_type = goods_type;
+        this.goods_num = goods_num;
+    }
+
     public String getGoods_name() {
         return goods_name;
     }
