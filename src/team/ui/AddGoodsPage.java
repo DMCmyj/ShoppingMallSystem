@@ -6,6 +6,7 @@ import team.sys.Goods;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.ResultSet;
 import java.util.Objects;
 
 public class AddGoodsPage extends JFrame {

@@ -89,4 +89,17 @@ public class LinkDB {
         }
         return false;
     }
+
+//    更改商品数量
+    public static boolean SetGoodsNum(Goods goods){
+        String sql = "UPDATE `shoppingdb`.`goods` SET `goods_num` = '"+ goods.getGoods_num() +"' WHERE (`goods_name` = '"+ goods.getGoods_name() +"');";
+        try {
+            if(1 == mysqlStatement.executeUpdate(sql)){
+                return true;
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return false;
+    }
 }

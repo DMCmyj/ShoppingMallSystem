@@ -1,6 +1,7 @@
 package team.ui;
 
 import team.db.LinkDB;
+import team.sys.Goods;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -51,6 +52,16 @@ public class MainPage extends JFrame {
         goods_sold.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                int num = Integer.parseInt((String) jTable.getValueAt(jTable.getSelectedRow(),4));
+                SellGoodsPage sellGoodsPage = new SellGoodsPage(
+                        new Goods(
+                                (String) jTable.getValueAt(jTable.getSelectedRow(),1),
+                                Double.parseDouble((String) jTable.getValueAt(jTable.getSelectedRow(),3)),
+                                (String) jTable.getValueAt(jTable.getSelectedRow(),2),
+                                num
+                                )
+                );
+                window.setVisible(false);
             }
         });
         window.add(goods_sold);
