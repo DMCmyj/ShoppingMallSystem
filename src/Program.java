@@ -8,7 +8,6 @@ import team.ui.SellGoodsPage;
 public class Program {
     public static void main(String[] args) {
         LinkDB linkDB = new LinkDB();
-//        LoginPage loginPage = new LoginPage();
-        MainPage mainPage = new MainPage();
+        LoginPage loginPage = new LoginPage();
     }
 }

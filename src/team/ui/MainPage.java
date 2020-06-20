@@ -34,7 +34,7 @@ public class MainPage extends JFrame {
     public MainPage(){
         window = new JFrame("商品管理系统登录页面");
         window.setLayout(null);
-        window.setSize(1120,1000);
+        window.setSize(1120,920);
         //设置窗口在屏幕居中
         window.setLocationRelativeTo(null);
         window.setResizable(false);
@@ -321,18 +321,72 @@ public class MainPage extends JFrame {
         window.add(showAllGoods);
 
 // ------------------------销售记录表时间查询
-        JLabel tipfind2 = new JLabel("销售记录表查询：");
-        tipfind2.setBounds(20,740,150,30);
+        JLabel tipfind2 = new JLabel("销售记录表查询(按交易时间查询)：");
+        tipfind2.setBounds(20,770,340,30);
         tipfind2.setFont(new Font("楷体",Font.PLAIN,18));
         window.add(tipfind2);
+
+        JPanel jPanelFindBySellTime2 = new JPanel();
+        jPanelFindBySellTime2.setBounds(340,770,window.getWidth()-550,90);
+        jPanelFindBySellTime2.setLayout(null);
+//        内部组件
+        JLabel jLabelFindBySellTime11 = new JLabel("起始时间:");
+        jLabelFindBySellTime11.setFont(new Font("楷体",Font.PLAIN,20));
+        jLabelFindBySellTime11.setBounds(20,10,150,30);
+        jPanelFindBySellTime2.add(jLabelFindBySellTime11);
+        JLabel jLabelFindBySellTime22 = new JLabel("结束时间:");
+        jLabelFindBySellTime22.setFont(new Font("楷体",Font.PLAIN,20));
+        jLabelFindBySellTime22.setBounds(20,50,150,30);
+        jPanelFindBySellTime2.add(jLabelFindBySellTime22);
+//      时间输入条1
+        JPanelTime jPanelTime11 = new JPanelTime();
+        jPanelTime11.setBounds(120,10,430,30);
+        jPanelFindBySellTime2.add(jPanelTime11);
+
+        JPanelTime jPanelTime22 = new JPanelTime();
+        jPanelTime22.setBounds(120,50,430,30);
+        jPanelFindBySellTime2.add(jPanelTime22);
+
+        window.add(jPanelFindBySellTime2);
+
+//        查询按钮（表2）
+        JButton jButtonFind2 = new JButton("查询");
+        jButtonFind2.setFont(new Font("楷体",Font.PLAIN,25));
+        jButtonFind2.setBounds(window.getWidth()-200,770,150,30);
+        jButtonFind2.setBackground(Color.pink);
+        jButtonFind2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(jPanelTime11.compareTo(jPanelTime22) < 0){
+                    jTableSalesRecord.setModel(getTableModelSalesRecord(LinkDB.findBySellTime2(jPanelTime11.getTime(),jPanelTime22.getTime())));
+                }else {
+                    JOptionPane.showMessageDialog(null,"起始时间不得晚于结束时间","警告",JOptionPane.PLAIN_MESSAGE);
+                }
+            }
+        });
+        window.add(jButtonFind2);
+
+//        浏览所有商品按钮
+        JButton showAllGoods2 = new JButton("浏览所有记录");
+        showAllGoods2.setBounds(window.getWidth()-200,820,150,30);
+        showAllGoods2.setFont(new Font("楷体",Font.PLAIN,18));
+        showAllGoods2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                jTableSalesRecord.setModel(getTableModelSalesRecord(LinkDB.getAllSalesRecord()));
+            }
+        });
+        showAllGoods2.setBackground(Color.pink);
+        window.add(showAllGoods2);
+
 
         JPanel jPanelfind1 = new JPanel(){
             @Override
             public void paint(Graphics g) {
-                g.drawLine(0,5,window.getWidth()-20,5);
+                g.drawLine(0,5,window.getWidth()-30,5);
             }
         };
-        jPanelfind1.setBounds(20,430,window.getWidth()-50,10);
+        jPanelfind1.setBounds(20,430,window.getWidth()-60,10);
         window.add(jPanelfind1);
 
         window.add(jScrollPane);
@@ -464,15 +518,7 @@ class JPanelTime extends JPanel implements Comparable{
 
     @Override
     public String toString() {
-        year = years[jComboBoxYear1.getSelectedIndex()];
-        month = Integer.parseInt(months[jComboBoxMonth1.getSelectedIndex()]) < 10 ? "0"+ months[jComboBoxMonth1.getSelectedIndex()] : months[jComboBoxMonth1.getSelectedIndex()];
-        day = Integer.parseInt(days[jComboBoxDay1.getSelectedIndex()]) < 10 ? "0"+ days[jComboBoxDay1.getSelectedIndex()] : days[jComboBoxDay1.getSelectedIndex()];
-        hour = Integer.parseInt(hours[jComboBoxHours1.getSelectedIndex()]) < 10 ? "0"+ hours[jComboBoxHours1.getSelectedIndex()] : hours[jComboBoxHours1.getSelectedIndex()];
-        miunte = Integer.parseInt(minutesAndSeconds[jComboBoxMinutes1.getSelectedIndex()]) < 10 ? "0"+ minutesAndSeconds[jComboBoxMinutes1.getSelectedIndex()] : minutesAndSeconds[jComboBoxMinutes1.getSelectedIndex()];
-        second = Integer.parseInt(minutesAndSeconds[jComboBoxSeconds1.getSelectedIndex()]) < 10 ? "0"+ minutesAndSeconds[jComboBoxSeconds1.getSelectedIndex()] : minutesAndSeconds[jComboBoxSeconds1.getSelectedIndex()];
-        String date = year + "-" + month + "-" + day;
-        String time = hour + ":" + miunte + ":" + second;
-        return date + " " + time;
+        return this.getTime();
     }
 
     @Override

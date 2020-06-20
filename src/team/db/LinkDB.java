@@ -193,4 +193,16 @@ public class LinkDB {
         }
         return resultSet;
     }
+
+//    按交易时间查询
+public static ResultSet findBySellTime2(String time1,String time2){
+    String sql = "select * from sales_record where time between '"+ time1 +"' and '"+ time2 +"';";
+    ResultSet resultSet = null;
+    try {
+        resultSet = mysqlStatement.executeQuery(sql);
+    } catch (SQLException throwables) {
+        throwables.printStackTrace();
+    }
+    return resultSet;
+}
 }
