@@ -486,6 +486,7 @@ class JPanelTime extends JPanel implements Comparable{
         } catch (ParseException e) {
             e.printStackTrace();
         }
+        assert time1 != null;
         return time1.compareTo(time2);
     }
 }
