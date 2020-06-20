@@ -158,4 +158,39 @@ public class LinkDB {
         }
         return false;
     }
+
+//    按照商品名称查找
+    public static ResultSet findByName(String goodsName){
+        String sql = "select * from goods where goods_name = '"+ goodsName +"';";
+        ResultSet resultSet = null;
+        try {
+            resultSet = mysqlStatement.executeQuery(sql);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return resultSet;
+    }
+
+    //    按照商品类别查找
+    public static ResultSet findByType(String goodsType){
+        String sql = "select * from goods where goods_type = '"+ goodsType +"';";
+        ResultSet resultSet = null;
+        try {
+            resultSet = mysqlStatement.executeQuery(sql);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return resultSet;
+    }
+//    按销售时间查找
+    public static ResultSet findBySellTime(String time1,String time2){
+        String sql = "select * from goods where sell_date between '"+ time1 +"' and '"+ time2 +"';";
+        ResultSet resultSet = null;
+        try {
+            resultSet = mysqlStatement.executeQuery(sql);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return resultSet;
+    }
 }
